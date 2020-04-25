@@ -28,7 +28,7 @@
 		<module>config-server</module>
 		<module>eureka-server</module>
 		<module>ordering-service</module>
-
+		<module>shared-kernel</module>
 	</modules>
 
 	<dependencyManagement>
