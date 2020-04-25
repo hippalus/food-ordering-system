@@ -26,6 +26,7 @@
 
 	<modules>
 		<module>config-server</module>
+		<module>eureka-server</module>
 	</modules>
 
 	<dependencyManagement>
