@@ -27,6 +27,8 @@
 	<modules>
 		<module>config-server</module>
 		<module>eureka-server</module>
+		<module>ordering-service</module>
+
 	</modules>
 
 	<dependencyManagement>
