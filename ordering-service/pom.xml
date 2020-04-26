@@ -12,6 +12,10 @@
     <name>ordering-service</name>
     <packaging>jar</packaging>
 
+    <properties>
+        <shared-kernel.version>1.0</shared-kernel.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,6 +52,12 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.hippalus</groupId>
+            <artifactId>shared-kernel</artifactId>
+            <version>${shared-kernel.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
