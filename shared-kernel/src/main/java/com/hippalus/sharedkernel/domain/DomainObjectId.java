@@ -8,7 +8,6 @@ import lombok.Getter;
 import org.springframework.lang.NonNull;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 import java.util.UUID;
 
 public abstract class DomainObjectId implements ValueObject {
@@ -53,8 +52,6 @@ public abstract class DomainObjectId implements ValueObject {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", DomainObjectId.class.getSimpleName() + "[", "]")
-                .add("uuid='" + uuid + "'")
-                .toString();
+        return toUUID();
     }
 }
