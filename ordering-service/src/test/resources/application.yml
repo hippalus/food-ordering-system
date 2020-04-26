@@ -3,10 +3,10 @@ spring:
     name: ordering-service
   datasource:
     url: jdbc:h2:mem:db1;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE
-    type: com.zaxxer.hikari.HikariDataSource
-    driverClassName: org.h2.Driver
     username: sa
     password:
+    driverClassName: org.h2.Driver
+    type: com.zaxxer.hikari.HikariDataSource
     hikari:
       pool-name: orders.connection.pool
   jpa:
