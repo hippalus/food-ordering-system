@@ -2,6 +2,7 @@ package com.hippalus.orderingservice.application.service;
 import com.hippalus.orderingservice.application.request.CreateOrderRequest;
 import com.hippalus.orderingservice.application.response.OrderResponse;
 import com.hippalus.orderingservice.domain.commands.CreateOrder;
+import com.hippalus.orderingservice.domain.domainevents.IDomainEventPublisher;
 import com.hippalus.orderingservice.domain.models.OrderId;
 import com.hippalus.orderingservice.domain.models.OrderItem;
 import com.hippalus.orderingservice.domain.models.Orders;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService implements IOrderService {
     private final OrderRepository orderRepository;
+    private final IDomainEventPublisher eventPublisher;
     private final Validator validator;
 
     @Override
@@ -37,6 +39,7 @@ public class OrderService implements IOrderService {
         var createOrderCmd = transformToCreateOrderCmd(request);
         final var createdOrder = Orders.create(createOrderCmd);
         final var persistOrder = orderRepository.saveAndFlush(createdOrder);
+        eventPublisher.publish(persistOrder.getDomainEvents());
         return new OrderResponse(persistOrder);
     }
 

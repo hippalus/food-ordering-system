@@ -1,4 +1,4 @@
-package com.hippalus.orderingservice.domain.application;
+package com.hippalus.orderingservice.application;
 
 import com.hippalus.orderingservice.OrderingServiceApplication;
 import com.hippalus.orderingservice.application.request.CreateOrderRequest;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,15 +28,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.*;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = OrderingServiceApplication.class)
-@AutoConfigureMockMvc
+@SpringBootTest(classes = {OrderingServiceApplication.class}, webEnvironment = WebEnvironment.RANDOM_PORT)
 @Transactional
+@AutoConfigureMockMvc
 public class OrderResourceIT {
 
-    private static final String ORDER_URI="/orders/create";
+    private static final String ORDER_URI = "/orders/create";
 
     @Autowired
     private OrderResource orderResource;
@@ -46,9 +47,10 @@ public class OrderResourceIT {
     @Autowired
     private IOrderService orderService;
 
+
     @BeforeEach
     void setUp() {
-        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();;
+        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
@@ -56,14 +58,15 @@ public class OrderResourceIT {
         assertThat(orderResource).isNotNull();
         assertThat(orderService).isNotNull();
     }
+
     @DisplayName("When an order creation request is received, then order should be saved and then the order details response should be given")
     @Test
     void createOrder() throws Exception {
         //given:
-        Set<OrderItemResponse> items=new HashSet<>();
-        items.add(new OrderItemResponse("lahmacun",3, BigDecimal.TEN));
-        items.add(new OrderItemResponse("ayran",1, BigDecimal.valueOf(2.99)));
-        var request=new CreateOrderRequest("Habip",items);
+        Set<OrderItemResponse> items = new HashSet<>();
+        items.add(new OrderItemResponse("lahmacun", 3, BigDecimal.TEN));
+        items.add(new OrderItemResponse("ayran", 1, BigDecimal.valueOf(2.99)));
+        var request = new CreateOrderRequest("Habip", items);
         final var requestBody = DomainModelMapper.writeToJsonString(request);
 
         //when:
@@ -80,14 +83,15 @@ public class OrderResourceIT {
         final var response = DomainModelMapper.readValue(content, OrderResponse.class);
         assertThat(response).isNotNull();
     }
+
     @DisplayName("when an invalid order create request received  then error message details should be return")
     @Test
     void createInvalidOrder() throws Exception {
         //given:
-        Set<OrderItemResponse> items=new HashSet<>();
-        items.add(new OrderItemResponse("lahmacun",3, BigDecimal.TEN));
-        items.add(new OrderItemResponse("ayran",1, BigDecimal.valueOf(2.99)));
-        var request=new CreateOrderRequest("",items);
+        Set<OrderItemResponse> items = new HashSet<>();
+        items.add(new OrderItemResponse("lahmacun", 3, BigDecimal.TEN));
+        items.add(new OrderItemResponse("ayran", 1, BigDecimal.valueOf(2.99)));
+        var request = new CreateOrderRequest("", items);
         final var requestBody = DomainModelMapper.writeToJsonString(request);
 
         //when:
@@ -104,10 +108,11 @@ public class OrderResourceIT {
         assertThat(content).isNotNull();
         System.err.println(content);
     }
+
     @Test
     void createInvalidOrder2() throws Exception {
         //given:
-        var request=new CreateOrderRequest();
+        var request = new CreateOrderRequest();
         final var requestBody = DomainModelMapper.writeToJsonString(request);
 
         //when:
@@ -124,4 +129,6 @@ public class OrderResourceIT {
         assertThat(content).isNotNull();
         System.err.println(content);
     }
+
+
 }
