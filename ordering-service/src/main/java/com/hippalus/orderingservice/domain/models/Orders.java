@@ -1,6 +1,8 @@
 package com.hippalus.orderingservice.domain.models;
 
 import com.hippalus.orderingservice.domain.commands.CreateOrder;
+import com.hippalus.orderingservice.domain.domainevents.OrderCreated;
+import com.hippalus.orderingservice.domain.domainevents.OrderStatusChanged;
 import com.hippalus.orderingservice.domain.exceptions.AggregateException;
 import com.hippalus.orderingservice.domain.policies.OrderPolicy;
 import com.hippalus.sharedkernel.domain.AbstractAggregateRoot;
@@ -61,6 +63,7 @@ public class Orders extends AbstractAggregateRoot<OrderId> {
     public static Orders create(CreateOrder cmd) throws AggregateException {
         var order =new Orders(cmd.getId(),cmd.getCustomerId(),cmd.getItems(),OffsetDateTime.now());
         OrderPolicy.verify(order);
+        order.applyEvent(new OrderCreated<>(order.getId(), order.customerId, order.orderItems, OffsetDateTime.now()));
         return order;
     }
 
@@ -84,10 +87,12 @@ public class Orders extends AbstractAggregateRoot<OrderId> {
     }
 
     private void changeStatus(OrderStatus status) {
+        var originalStatus = this.status;
         this.status = status;
         this.modifiedDate = OffsetDateTime.now();
         var stateChange=new OrderStatusChange(this.modifiedDate,this.status);
         statusChangeHistory.add(stateChange);
+        this.applyEvent(new OrderStatusChanged<>(this.getId(), originalStatus, status, this.modifiedDate));
     }
 
 }

@@ -13,6 +13,8 @@ public abstract class DomainEvent<T extends DomainObjectId> implements DomainObj
     @Setter(AccessLevel.PUBLIC)
     protected  T entityId;
     private final String eventId;
+    @Setter(AccessLevel.PROTECTED)
+    protected Enum<?> eventType;
     private final OffsetDateTime occurredDate;
 
     protected DomainEvent() {
