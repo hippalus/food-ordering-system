@@ -27,9 +27,10 @@
 	<modules>
 		<module>config-server</module>
 		<module>eureka-server</module>
+		<module>shared-kernel</module>
 		<module>restaurants-service</module>
 		<module>ordering-service</module>
-		<module>shared-kernel</module>
+		<module>payment-service</module>
 	</modules>
 
 	<dependencyManagement>
