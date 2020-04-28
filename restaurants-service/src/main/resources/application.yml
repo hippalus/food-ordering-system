@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: restaurants-service
+  datasource:
+    url: jdbc:h2:mem:db1;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: restaurants.connection.pool
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+    show-sql: true
+    open-in-view: false
+server:
+  port: ${RESTAURANTS_SERVICE_PORT:8083}
