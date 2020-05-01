@@ -15,7 +15,7 @@ import java.util.Set;
 public class Menu extends AbstractEntity<MenuId> {
 
     private String name;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "menu_product",
             joinColumns = @JoinColumn(name = "menu_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
@@ -25,8 +25,8 @@ public class Menu extends AbstractEntity<MenuId> {
         super(DomainObjectId.randomId(MenuId.class));
     }
 
-    public Menu(MenuId id,String name,Set<Product> menuItems) {
-        super(id);
+    public Menu(String name,Set<Product> menuItems) {
+        super(DomainObjectId.randomId(MenuId.class));
         this.name=name;
         this.menuItems=menuItems;
     }
