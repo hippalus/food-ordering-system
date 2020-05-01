@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +20,7 @@ public class OrderResponse {
     private Set<OrderItemResponse> items;
     private OffsetDateTime createdDate;
     private OffsetDateTime modifiedDate;
+    private BigDecimal totalAmount;
 
     public OrderResponse(Orders order) {
         items = new HashSet<>();

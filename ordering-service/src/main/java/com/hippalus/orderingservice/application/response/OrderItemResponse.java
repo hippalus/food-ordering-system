@@ -27,6 +27,7 @@ public class OrderItemResponse {
     public OrderItemResponse(OrderItem orderItem) {
         this.productId = orderItem.getProductId().toUUID();
         this.quantity = orderItem.getQuantity();
+        this.itemDescription=orderItem.getItemDescription();
         this.price = orderItem.getPrice();
         this.fee = orderItem.fee();
     }
