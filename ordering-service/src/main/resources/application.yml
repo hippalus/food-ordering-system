@@ -22,8 +22,19 @@ spring:
         order-event-outbound:
           destination: orders-topic
           contentType: 'application/json'
+          producer:
+            header-mode: headers
+        payments-topic:
+          destination: payments-topic
+          consumer:
+            header-mode: headers
       kafka:
         binder:
           brokers: localhost:9092
+        streams:
+          binder:
+            configuration:
+              commit:
+                interval: 1000
 server:
   port: ${ORDERING_SERVICE_PORT:8084}

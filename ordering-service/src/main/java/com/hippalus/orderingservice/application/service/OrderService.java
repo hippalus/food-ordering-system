@@ -39,7 +39,7 @@ public class OrderService implements IOrderService {
         var createOrderCmd = transformToCreateOrderCmd(request);
         final var createdOrder = Orders.create(createOrderCmd);
         final var persistOrder = orderRepository.saveAndFlush(createdOrder);
-        eventPublisher.publish(persistOrder.getDomainEvents());
+        eventPublisher.publish(createdOrder.getDomainEvents());
         return new OrderResponse(persistOrder);
     }
 

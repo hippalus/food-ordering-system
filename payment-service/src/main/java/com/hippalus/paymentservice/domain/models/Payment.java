@@ -1,8 +1,8 @@
 package com.hippalus.paymentservice.domain.models;
 
 import com.hippalus.paymentservice.domain.commands.PayCommand;
-import com.hippalus.paymentservice.domain.domainevents.PayFailedEvent;
-import com.hippalus.paymentservice.domain.domainevents.PayedEvent;
+import com.hippalus.paymentservice.domain.domainevents.PaymentFailedEvent;
+import com.hippalus.paymentservice.domain.domainevents.PaymentSuccessEvent;
 import com.hippalus.sharedkernel.domain.AbstractAggregateRoot;
 import com.hippalus.sharedkernel.domain.DomainObjectId;
 import lombok.*;
@@ -50,8 +50,9 @@ public class Payment extends AbstractAggregateRoot<PaymentId> {
 
     public void success() {
         this.setStatus(PaymentStatus.SUCCESS);
-        PayedEvent.PayedEventBuilder<PaymentId> payedEventBuilder = PayedEvent.builder();
-        this.applyEvent(payedEventBuilder.paymentId(this.getId())
+        PaymentSuccessEvent.PaymentSuccessEventBuilder<PaymentId> successEventBuilder = PaymentSuccessEvent.builder();
+        this.applyEvent(successEventBuilder.paymentId(this.getId())
+                .transactionId(this.getTransaction().getId().toUUID())
                 .amount(this.getTransaction().getAmount())
                 .createdDate(OffsetDateTime.now())
                 .paymentMethod(this.getType())
@@ -60,9 +61,10 @@ public class Payment extends AbstractAggregateRoot<PaymentId> {
 
     public void failed() {
         this.setStatus(PaymentStatus.FAILED);
-        PayFailedEvent.PayFailedEventBuilder<PaymentId> failedEventBuilder = PayFailedEvent.builder();
+        PaymentFailedEvent.PaymentFailedEventBuilder<PaymentId> failedEventBuilder = PaymentFailedEvent.builder();
         this.applyEvent(failedEventBuilder.paymentId(this.getId())
                 .amount(this.getTransaction().getAmount())
+                .transactionId(this.getTransaction().getId().toUUID())
                 .createdDate(OffsetDateTime.now())
                 .build());
     }

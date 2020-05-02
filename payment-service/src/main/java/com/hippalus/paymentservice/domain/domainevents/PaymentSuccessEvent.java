@@ -16,16 +16,20 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class PayFailedEvent<T extends DomainObjectId> extends DomainEvent<T> {
+public class PaymentSuccessEvent<T extends DomainObjectId> extends DomainEvent<T> {
 
+    private String transactionId;
     private PaymentMethod paymentMethod;
     private BigDecimal amount;
     private OffsetDateTime createdDate;
     @Builder
-    public PayFailedEvent(T paymentId, BigDecimal amount, OffsetDateTime createdDate) {
+    public PaymentSuccessEvent(T paymentId,String transactionId,PaymentMethod paymentMethod,
+                               BigDecimal amount, OffsetDateTime createdDate) {
+        this.transactionId = transactionId;
+        this.paymentMethod = paymentMethod;
         this.setEntityId(paymentId);
         this.amount = amount;
         this.createdDate = createdDate;
-        this.setEventType(PaymentEventType.PAYMENT_FAILED);
+        this.setEventType(PaymentEventType.PAYMENT_SUCCESS);
     }
 }
