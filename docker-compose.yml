@@ -40,30 +40,36 @@ services:
     volumes:
       - ./kafka/data:/var/lib/kafka/data
 
-  config-server:
-    image: config-server:latest
-    hostname: config-server
-    build:
-      context: ./config-server
-      dockerfile: Dockerfile
-    container_name: config-server
-    ports:
-      - "8888:8888"
-
   eureka-server:
     image: eureka-server:latest
     hostname: eureka-server
     build:
       context: ./eureka-server
       dockerfile: Dockerfile
-    depends_on:
-      - config-server
     container_name: eureka-server
     ports:
       - "8761:8761"
     environment:
       - JAVA_OPTIONS=
         -DCONFIGSERVER_URI=http://config-server:8888
+
+  config-server:
+    image: config-server:latest
+    hostname: config-server
+    depends_on:
+      - eureka-server
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    container_name: config-server
+    ports:
+      - "8888:8888"
+    links:
+      - eureka-server
+    environment:
+      - JAVA_OPTIONS=
+        -DEUREKASERVER_URI=http://eureka-server:8761/eureka
+
 
   restaurants-service:
     image: restaurants-service:latest
@@ -81,6 +87,10 @@ services:
       - JAVA_OPTIONS=
         -DCONFIGSERVER_URI=http://config-server:8888
         -DEUREKASERVER_URI=http://eureka-server:8761/eureka
+    links:
+      - config-server
+      - eureka-server
+
 
 
   ordering-service:
@@ -100,6 +110,11 @@ services:
       - JAVA_OPTIONS=
         -DCONFIGSERVER_URI=http://config-server:8888
         -DEUREKASERVER_URI=http://eureka-server:8761/eureka
+    links:
+      - config-server
+      - eureka-server
+      - zookeeper
+
 
   payment-service:
     image: payment-service:latest
@@ -118,3 +133,7 @@ services:
       - JAVA_OPTIONS=
         -DCONFIGSERVER_URI=http://config-server:8888
         -DEUREKASERVER_URI=http://eureka-server:8761/eureka
+    links:
+      - config-server
+      - eureka-server
+      - zookeeper

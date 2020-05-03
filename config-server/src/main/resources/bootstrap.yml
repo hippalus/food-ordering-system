@@ -23,3 +23,7 @@ spring:
       server:
         git:
           uri: https://github.com/hippalus/food-ordering-system-config-repo
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKASERVER_URI:http://eureka-server:8761/eureka}
