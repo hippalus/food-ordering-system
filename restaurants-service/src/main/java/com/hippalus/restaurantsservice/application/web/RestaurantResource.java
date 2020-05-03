@@ -24,7 +24,7 @@ public class RestaurantResource {
                 .body(restaurantService.createRestaurant(request));
     }
 
-    @GetMapping(value = "/restaurants/getall")
+    @GetMapping(value = "/restaurants/getall",produces = "application/json")
     public List<RestaurantResponse> getAllRestaurants() {
         return restaurantService.getAllRestaurants();
     }
