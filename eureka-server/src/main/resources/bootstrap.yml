@@ -1,3 +1,16 @@
 spring:
   application:
     name: eureka-server
+
+---
+spring:
+  profiles: docker
+  application:
+    name: eureka-server
+  cloud:
+    config:
+      uri: ${CONFIGSERVER_URI:http://config-server:8888}
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

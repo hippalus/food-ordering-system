@@ -9,3 +9,17 @@ spring:
       server:
         git:
           uri: https://github.com/hippalus/food-ordering-system-config-repo
+
+---
+server:
+  port: ${PORT:8888}
+
+spring:
+  profiles: docker
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/hippalus/food-ordering-system-config-repo

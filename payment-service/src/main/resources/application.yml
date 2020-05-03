@@ -27,3 +27,35 @@ spring:
           brokers: localhost:9092
 server:
   port: ${PAYMENT_SERVICE_PORT:8085}
+
+---
+spring:
+  profiles: docker
+  application:
+    name: payment-service
+  datasource:
+    url: jdbc:h2:mem:payment-db;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      pool-name: orders.connection.pool
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+    show-sql: true
+    open-in-view: false
+  cloud:
+    stream:
+      bindings:
+        payment-event-outbound:
+          destination: payments-topic
+          contentType: 'application/json'
+      kafka:
+        binder:
+          brokers: kafka:9092
+server:
+  port: ${PAYMENT_SERVICE_PORT:8085}
