@@ -1,0 +1,21 @@
+<div class="row">
+  <form class="large-4 large-offset-4 columns">
+    <div class="row">
+      <div class="large-12 columns">
+        <h2>Submit Payment</h2>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="large-12 columns">
+        <label>Card Number
+          <input type="text" name="cardnumber" placeholder="" [(ngModel)]="creditCardNumber"/>
+        </label>
+      </div>
+
+      <div class="large-12 columns">
+        <button class="button expand large" (click)="pay()">Pay Now</button>
+      </div>
+    </div><!--/row-->
+  </form>
+</div>

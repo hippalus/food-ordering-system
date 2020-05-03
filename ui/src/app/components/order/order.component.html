@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="small-12 medium-8 columns">
+    <div class="small-6 medium-4 columns">
+      <h3>Please select your favorite restaurant...</h3>
+      <select [hidden]="restaurants.length == 0" id="restaurants" (change)="updateMenuList($event)"
+              [(ngModel)]="selectedRestaurant">
+        <option *ngFor="let restaurant of restaurants" [ngValue]="restaurant">
+          {{restaurant.name}}
+        </option>
+      </select>
+    </div>
+    <div class="small-6 medium-4 columns">
+      <h3>Select a menu of your restaurant...</h3>
+
+      <select [hidden]="menus.length == 0" id="menus" (change)="updateProductList($event)" [(ngModel)]="selectedMenu">
+        <option *ngFor="let menu of menus" [ngValue]="menu">
+          {{menu.name}}
+        </option>
+      </select>
+    </div>
+
+  </div>
+  <div class="small-12 medium-4 columns">
+    <app-basket></app-basket>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 medium-8 columns">
+    <ul class="product-list">
+      <li *ngFor="let product of products"
+          class="product-container">
+        <div class="row">
+          <div class="medium-9 columns">
+            <h4>
+              <span class="text--bold js-product-name">{{product.name}}</span>
+              <small class="product_price js-product-price">{{product.price | currency:'TRY':true}}</small>
+            </h4>
+            <p>
+              <button type="button"
+                      class="button success large js-btn-add"
+                      (click)="addProductToCart(product, 1)">Add To Cart
+              </button>
+              <button type="button"
+                      class="button small js-btn-remove"
+                      *ngIf="productInCart(product) | async"
+                      (click)="removeProductFromCart(product, 1)">Remove item from cart
+              </button>
+            </p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
