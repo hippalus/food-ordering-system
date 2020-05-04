@@ -36,7 +36,11 @@ Microservices project for food ordering system
   
   - More integration and unit tests.
   
-  - In detail bean validation and api validation
+  - In detail bean validation and api validation.
+  
+  - Worst case tests
+  
+  
   
   
   
