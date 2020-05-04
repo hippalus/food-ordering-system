@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "a2937363-8c88-4162-aee6-27c383e12119",
+		"name": "restaurants-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create-restaurant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8083/restaurants/getall",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"restaurants",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-restaurant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Dayinin Yeri\",\n  \"menus\": [\n    {\n      \"name\": \"Izgara Cesitleri\",\n      \"menuItems\": [\n        {\n          \"name\": \"Kebap\",\n          \"price\": 30\n        }\n      ]\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "localhost:8083/restaurants/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"restaurants",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

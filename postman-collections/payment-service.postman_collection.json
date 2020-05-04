@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "ea89ffc9-faaa-47ff-be9c-cc0d27d6cefa",
+		"name": "payment-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "successPayment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"OrderId\",\n  \"cardNumber\": \"5105105105105100\",\n  \"items\": [\n    {\n      \"id\": \"TransactionItemId\",\n      \"quantity\": 2,\n      \"itemDescription\": \"Sac Kavurma\",\n      \"price\": 45.89\n    },\n    {\n      \"id\": \"TransactionItemId2\",\n      \"quantity\": 3,\n      \"itemDescription\": \"Sutlac\",\n      \"price\": 20\n    }\n  ],\n  \"paymentMethod\": \"CREDITCARD\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/payment/pay",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"payment",
+						"pay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "failedPayment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"50e25e8c-fbe1-49c7-adbe-66d28fdc70b3\",\n  \"cardNumber\": \"5105105105105105\",\n  \"items\": [\n    {\n      \"id\": \"TransactionItemId\",\n      \"quantity\": 2,\n      \"itemDescription\": \"Sac Kavurma\",\n      \"price\": 45.89\n    },\n    {\n      \"id\": \"TransactionItemId2\",\n      \"quantity\": 3,\n      \"itemDescription\": \"Sutlac\",\n      \"price\": 20\n    }\n  ],\n  \"paymentMethod\": \"CREDITCARD\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/payment/pay",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"payment",
+						"pay"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "2e516579-facd-4f78-9378-562c277ed448",
+		"name": "ordering-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create_order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerId\": \"Habip\",\n  \"items\": [\n    {\n      \"productId\": \"b7e87386-b63e-4812-9f9f-d33e7f816fea\",\n      \"quantity\": 2,\n      \"itemDescription\": \"Kebap\",\n      \"price\": 30\n    },\n    {\n      \"productId\": \"b63e-b7e87386-9f9f\",\n      \"quantity\": 1,\n      \"itemDescription\": \"Ciger\",\n      \"price\": 25\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8084/orders/create",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8084",
+					"path": [
+						"orders",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
