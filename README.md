@@ -16,6 +16,21 @@ Microservices project for food ordering system
   
   ### Go to ui directory and follow the instruction README.md
   [Frontend README.md link ](https://github.com/hippalus/food-ordering-system/blob/master/ui/README.md) 
+  
+ 
+ 
+ 
+ 
+  
+  ## See the microservice configuration repository
+
+   [Food Ordering System Config Repo](https://github.com/hippalus/food-ordering-system-config-repo)
+   
+   
+   
+   
+   
+   
      
 ## Code Coverage
     
@@ -28,6 +43,7 @@ Microservices project for food ordering system
 
 
     
+     
      
      
 ## MY TODO LIST 
